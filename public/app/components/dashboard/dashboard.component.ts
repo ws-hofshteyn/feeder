@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { HttpService } from './../../services/http.service';
+import { Observable, Subscription } from 'rxjs';
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.html',
@@ -10,14 +13,18 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class DashboardComponent {
     
-    constructor (private http: HttpClient, private modalService: NgbModal) {}
+    constructor (private http: HttpClient, private modalService: NgbModal, private httpService: HttpService) {}
 
     ngOnInit () {
         if (!localStorage.getItem('feeder_8884937_lang')) {
             this.openModal();
-        } else {
-            
         }
+
+        this.httpService.getNews().subscribe((news) => {
+            console.log('news', news)
+        })
+
+        
     }
 
     openModal () {

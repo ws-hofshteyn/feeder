@@ -6,7 +6,6 @@ let logger      = require('morgan');
 let bodyParser  = require('body-parser');
 let mongoose    = require('mongoose');
 let chalk       = require('chalk');
-let cors	    = require('cors');
 
 let schemasPath = __dirname + '/app/schemas/';
 let routesPath  = __dirname + '/app/routes/';
