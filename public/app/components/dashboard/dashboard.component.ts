@@ -13,7 +13,7 @@ import { Observable, Subscription } from 'rxjs';
 
 export class DashboardComponent {
 
-    news: any[];
+    news: any[] = [];
     
     constructor (private modalService: NgbModal, private httpService: HttpService) {}
 
@@ -25,8 +25,16 @@ export class DashboardComponent {
         this.httpService
             .getNews()
             .subscribe((news: any) => {
-                console.log('news', news)
-                this.news = news.items;
+                console.log('news.items', news.items);
+                news.items.forEach((item) => {
+                    this.news.push({
+                        title: item.title,
+                        image: item.content.split('<img src="')[1].split('" alt')[0],
+                        publishDate: new Date(item.pubDate),
+                        author: item.author.split('/u/')[1],
+                        link: item.link
+                    });
+                });
             })
 
         

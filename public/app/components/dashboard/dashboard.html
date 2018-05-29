@@ -1,4 +1,9 @@
-<div *ngFor="let item of news" [innerHTML]="item.content"></div>
+<div *ngFor="let item of news">
+    <h5>{{item.title}}</h5>
+    <img [src]="item.image">
+    author: {{ item.author }}
+    Publish date: {{ item.pubdate | date:'yyyy-MM-dd HH:mm a z' }}
+</div>
 
 <!-- <div class="row top-offset justify-content-center">
     <div class="col-md-10 md-offset-1">
