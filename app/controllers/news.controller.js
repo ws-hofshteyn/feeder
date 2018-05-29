@@ -7,7 +7,7 @@
     let parser = new Parser();
 
     module.exports = {
-        getNews: getNews,
+        getNews,
         // createUser,
         // geteUser,
         // geteAllUsers,
@@ -17,18 +17,19 @@
 
 
     function getNews (req, res) {
-        Promise.resolve()
-            .then(() => {
-                let feed = parser.parseURL('https://www.reddit.com/.rss');
-                console.log(feed.title);
-                
-                feed.items.forEach(item => {
-                    console.log(item.title + ':' + item.link)
-                });
-            })
-            .catch((err) => {
-                console.log('err:', err);
-            })
+
+        (async () => {
+
+            let feed = await parser.parseURL('https://www.reddit.com/.rss');
+            // console.log(feed.title);
+          
+            // feed.items.forEach(item => {
+            //   console.log(item.title + ':' + item.link)
+            // });
+
+            res.status(200).send(feed);
+          
+          })();
     }
     // function createUser (req, res) {
 

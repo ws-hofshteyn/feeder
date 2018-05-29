@@ -1,11 +1,11 @@
 (function () {
 	'use strict';
 
-	let NewsController = require('./../controllers/news.controller');
+	var NewsController = require('../controllers/news.controller.js');
 
-	module.exports = function (app) {
+	module.exports = (app) => {
 
-        app.get('/news'. NewsController.getNews);
+        app.get('/news',    NewsController.getNews);
         
         // // post
 		// app.post('/user/create',     UserController.createUser);

@@ -25,12 +25,13 @@ fs.readdirSync(schemasPath).forEach(function (file) {
     require(schemasPath + '/' + file);
 });
 
-fs.readdirSync(routesPath).forEach(function (file) {
-    require(routesPath + '/' + file)(app);
-});
+// fs.readdirSync(routesPath).forEach(function (file) {
+//     require(routesPath + '/' + file)(app);
+// });
+require('./app/routes/news.route')(app);
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
