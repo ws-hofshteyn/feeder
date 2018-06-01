@@ -7,12 +7,10 @@
             <img *ngIf="item.image" [src]="item.image">
             <img *ngIf="!item.image && item.source == 'reddit'" src="assets/images/reddit.png">
             <img *ngIf="!item.image && item.source == 'cnn'" src="assets/images/cnn.png">
-            <img *ngIf="!item.image && item.source == 'bbc'" src="assets/images/bbc.png">
+            <img *ngIf="!item.image && item.source == 'bbc'" src="assets/images/bbc.png" style="padding-top: 8px;">
         </div>
         <div class="col-md-10" *ngIf="item.source !== 'reddit'" [innerHTML]="item.content"></div>
     </div>
-    <!-- <div class="row  justify-content-left" *ngIf="item.content"> -->
-    <!-- </div> -->
     <div class="feed-info">
         <div class="row justify-content-left" *ngIf="item.author">
             <small>author: {{ item.author }}</small>

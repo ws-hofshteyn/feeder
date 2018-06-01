@@ -15,6 +15,9 @@ import { Observable, Subscription } from 'rxjs';
 export class DashboardComponent {
 
     news: FeedModel[] = [];
+    newsToDisplay: FeedModel[] = [];
+    currentPage: number = 1;
+    itemsPerPage: number = 20;
     
     constructor (private modalService: NgbModal, private httpService: HttpService) {}
 
@@ -32,10 +35,14 @@ export class DashboardComponent {
 
                 this.news = news.sort((a:any, b:any) => {
                     return Number(new Date(b.publishDate)) - Number(new Date(a.publishDate));
-                });; 
+                });
+                this.newsToDisplay = this.news.slice(0, this.itemsPerPage);
             })
+    }
 
-        
+    onPageChange (page: number) {
+        this.newsToDisplay = this.news.slice((page-1) * this.itemsPerPage, page * this.itemsPerPage);
+        window.scrollTo(0, 0)
     }
 
     openModal () {
