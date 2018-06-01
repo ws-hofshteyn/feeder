@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FeedItemComponent } from './components/feed-item/feed-item.component';
 import { DashboardComponent, ModalContentLang } from './components/dashboard/dashboard.component';
 
 import { HttpService } from './services/http.service';
@@ -14,7 +15,8 @@ import { HttpService } from './services/http.service';
     AppComponent,
     NavbarComponent,
     ModalContentLang,
-    DashboardComponent
+    DashboardComponent,
+    FeedItemComponent
   ],
   entryComponents: [
     ModalContentLang

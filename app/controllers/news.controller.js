@@ -18,13 +18,100 @@
 
     function getNews (req, res) {
 
-        (async () => {
+        let parsedFeed = [];
+        
+        Promise
+            .resolve()
+            .then(() => {
+                return parser.parseURL('https://www.reddit.com/.rss');
+            })
+            .then((rawFeed) => {
+                if (rawFeed) {
+                    return Promise.all(
+                        rawFeed.items.map((item) => {
+                            parsedFeed.push({
+                                source: 'reddit',
+                                title: item.title,
+                                content: item.content,
+                                publishDate: new Date(item.pubDate),
+                                author: item.author.split('/u/')[1],
+                                link: item.link
+                            });
+                        })
+                    )
+                } else {
+                    return;
+                }
+            })
+            .then(() => {
+                return parser.parseURL('http://rss.cnn.com/rss/edition.rss');
+            })
+            .then((rawFeed) => {
+                if (rawFeed) {
+                    return Promise.all(
+                        rawFeed.items.map((item) => {
+                            parsedFeed.push({
+                                source: 'cnn',
+                                title: item.title,
+                                content: item.content,
+                                publishDate: new Date(item.pubDate),
+                                author: null,
+                                link: item.link
+                            });
+                        })
+                    )
+                } else {
+                    return;
+                }
+            })
+            .then(() => {
+                return parser.parseURL('http://feeds.bbci.co.uk/news/rss.xml');
+            })
+            .then((rawFeed) => {
+                if (rawFeed) {
+                    return Promise.all(
+                        rawFeed.items.map((item) => {
+                            parsedFeed.push({
+                                source: 'bbc',
+                                title: item.title,
+                                content: item.content,
+                                publishDate: new Date(item.pubDate),
+                                author: null,
+                                link: item.link
+                            });
+                        })
+                    )
+                } else {
+                    return;
+                }
+            })
+            .then(() => {
+                res.status(200).send(parsedFeed);
+            })
+            .catch((err) => {
+                console.log('\n Error:', err);
+                res.status(400).send(err);
+            })
 
-            let feed = await parser.parseURL('https://www.reddit.com/.rss');
+        // (async () => {
 
-            res.status(200).send(feed);
+        //     let feed = await parser.parseURL('https://www.reddit.com/.rss');
+
+        //     let parsedFeed = [];
+
+        //     feed.map((item) => {
+        //         parsedFeed.push({
+        //             title: item.title,
+        //             image: item.content.split('<img src="')[1].split('" alt')[0] || null,
+        //             publishDate: new Date(item.pubDate),
+        //             author: item.author.split('/u/')[1],
+        //             link: item.link
+        //         });
+        //     })
+
+        //     res.status(200).send(feed);
           
-          })();
+        //   })();
     }
     // function createUser (req, res) {
 

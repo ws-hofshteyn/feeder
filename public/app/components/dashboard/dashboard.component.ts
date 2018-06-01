@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpService } from './../../services/http.service';
+import { FeedModel } from './../../models/feed.model';
 import { Observable, Subscription } from 'rxjs';
 
 
@@ -13,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 
 export class DashboardComponent {
 
-    news: any[] = [];
+    news: FeedModel[] = [];
     
     constructor (private modalService: NgbModal, private httpService: HttpService) {}
 
@@ -24,17 +25,14 @@ export class DashboardComponent {
 
         this.httpService
             .getNews()
-            .subscribe((news: any) => {
-                console.log('news.items', news.items);
-                news.items.forEach((item) => {
-                    this.news.push({
-                        title: item.title,
-                        image: item.content.split('<img src="')[1].split('" alt')[0],
-                        publishDate: new Date(item.pubDate),
-                        author: item.author.split('/u/')[1],
-                        link: item.link
-                    });
-                });
+            .subscribe((news: FeedModel[]) => {
+                news.map((item) => {
+                    if (item.content && item.content.split('<img src="')[1]) item.image = item.content.split('<img src="')[1].split('" alt')[0];
+                })
+
+                this.news = news.sort((a:any, b:any) => {
+                    return Number(new Date(b.publishDate)) - Number(new Date(a.publishDate));
+                });; 
             })
 
         

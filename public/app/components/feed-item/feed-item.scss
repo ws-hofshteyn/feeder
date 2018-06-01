@@ -1,0 +1,32 @@
+.feed-item {
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid #ececec;
+
+    &:last-child {
+        border-top: 0px;
+    }
+
+    .feed-title {
+        a {
+            color: #0087E2;
+            text-decoration: none;
+        }
+    }
+    .feed-thumb {
+        padding-left: 0px;
+        min-height: 48px;
+
+        img {
+            width: 95px;
+        }
+    }
+    .feed-info {
+
+        margin-top: 10px;
+
+        small {
+            font-size: 11px;
+            color: #9e9e9e;
+        }
+    }
+}

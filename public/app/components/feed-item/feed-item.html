@@ -1,0 +1,24 @@
+<div class="feed-item">
+    <div class="row  justify-content-left">
+        <h5 class="feed-title"><a href="{{item.link}}" target="_blank">{{item.title}}</a></h5>
+    </div>
+    <div class="row  justify-content-left">
+        <div class="col-md-2 feed-thumb">
+            <img *ngIf="item.image" [src]="item.image">
+            <img *ngIf="!item.image && item.source == 'reddit'" src="assets/images/reddit.png">
+            <img *ngIf="!item.image && item.source == 'cnn'" src="assets/images/cnn.png">
+            <img *ngIf="!item.image && item.source == 'bbc'" src="assets/images/bbc.png">
+        </div>
+        <div class="col-md-10" *ngIf="item.source !== 'reddit'" [innerHTML]="item.content"></div>
+    </div>
+    <!-- <div class="row  justify-content-left" *ngIf="item.content"> -->
+    <!-- </div> -->
+    <div class="feed-info">
+        <div class="row justify-content-left" *ngIf="item.author">
+            <small>author: {{ item.author }}</small>
+        </div>
+        <div class="row justify-content-left">
+            <small>Publish date: {{ item.publishDate | date:'yyyy/MM/dd HH:mm' }}</small>
+        </div>
+    </div>
+</div>
