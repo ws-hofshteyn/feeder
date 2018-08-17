@@ -1,0 +1,37 @@
+<div class="row top-offset justify-content-center">
+    <div class="col-md-6 md-offset-3">
+        
+        <div class="column" *ngFor="let item of newsToDisplay">
+            <app-feed-item [item]="item"></app-feed-item>
+        </div>
+
+        <div class="row justify-content-center top-offset" *ngIf="news.length">
+            <pagination [boundaryLinks]="true" 
+                        [totalItems]="news.length"
+                        [itemsPerPage]="itemsPerPage"
+                        previousText="&lsaquo;" 
+                        nextText="&rsaquo;" 
+                        firstText="&laquo;" 
+                        lastText="&raquo;"
+                        (pageChanged)="onPageChange($event)"></pagination>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!news.length" class="feed-loader">
+    <div class="row justify-content-center">
+        <h3>Feeding your feed...</h3>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="la-pacman">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
